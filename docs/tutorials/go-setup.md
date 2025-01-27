@@ -101,27 +101,48 @@ We’ll use a Microsoft Go Dev Container base image so that we don’t have to b
 
         go --version
 
-You should see a recent Go version displayed. This confirms Go is installed successfully in your Dev Container.
+You should see a recent Go version displayed, for example:
+
+        go version go1.20.5 linux/amd64
+
+This confirms Go is installed successfully in your Dev Container.
 
 ---
 
 ## Step 4: Create a New Go Project
 
-1. Create a new file, main.go:
+1. **Initialize a new Go module** for your project using the ```mod``` subcommand:
+
+        go mod init github.com/<your-username>/go-hello-comp423
+
+    (Replace <your-username> with your own GitHub username or any other module path you prefer.)
+
+    This creates a go.mod file in your project directory, which tracks your module name and any dependencies you add in the future.
+
+    !!! question "Why initialize a Go Module?" 
+        In Go, using modules is the recommended way to track dependencies. The go.mod file records this module name and tracks any libraries you import.
+    
+        The ```go mod init``` command sets up a clean and versioned environment for your Go project. It ensures that Go can properly manage dependencies and that your project remains reproducible
+
+2. Create a new file, main.go:
 
         touch main.go
 
-2. In ```main.go```, write a simple Go program:
+3. In ```main.go```, write a simple Go program:
 
-```go
-    package main
+        package main
 
-    import "fmt"
+        import "fmt"
 
-    func main() {
-        fmt.Println("Hello COMP423")
-    }
-```
+        func main() {
+            fmt.Println("Hello COMP423")
+        }
+
+4. Verify your Go module: After creating the main.go file, you can view your module's details by running:
+
+            go list -m all
+
+This will display the current module (```github.com/yourusername/go-hello-comp423```) and any dependencies (if added).
 
 ---
 
