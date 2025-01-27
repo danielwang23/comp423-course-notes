@@ -1,0 +1,675 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Setting up a dev container for Go - COMP423 Course Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setting-up-a-dev-container-for-go" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="COMP423 Course Notes" class="md-header__button md-logo" aria-label="COMP423 Course Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            COMP423 Course Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setting up a dev container for Go
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="COMP423 Course Notes" class="md-nav__button md-logo" aria-label="COMP423 Course Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    COMP423 Course Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Setting up a dev container for Go
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="setting-up-a-dev-container-for-go">Setting up a dev container for Go!<a class="headerlink" href="#setting-up-a-dev-container-for-go" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Primary author: <a href="https://github.com/danielwang23">Daniel Wang</a></li>
+<li>Reviewer: <a href="https://github.com/Paulyang80">Paul Yang</a></li>
+</ul>
+<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
+<p>Go (often referred to as <em>Golang</em>) is a statically-typed, open source programming language created by Google to develop web applications, cloud and networking services, and other types of software. It emphasizes simplicity, efficiency, and concurrency, making it popular for modern applications.</p>
+<p>In this tutorial, you’ll learn how to set up a basic Development Container (dev container) for Go in Visual Studio Code from a blank directory, to configuring git, and running a simple “Hello COMP423” program.</p>
+<hr />
+<h1 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Before You Begin</p>
+<p>Ensure the following prerequisites are met before starting the setup process:</p>
+</div>
+<ol>
+<li><strong>A GitHub account</strong>: If you don’t have one yet, sign up at <a href="https://github.com/">GitHub</a>.</li>
+<li><strong>Git installed</strong>: Install Git if you do not already have it.</li>
+<li><strong>Docker installed</strong>: Required to run the dev container.</li>
+<li>Install <strong>Visual Studio Code (VS Code)</strong> and the <strong>Remote - Containers</strong> plugin under extensions.</li>
+<li>Have a basic understanding of Git workflows, command-line basics, and containerized development.</li>
+</ol>
+<hr />
+<h2 id="step-1-creating-a-new-git-repository">Step 1: Creating a new Git Repository<a class="headerlink" href="#step-1-creating-a-new-git-repository" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Open a new bash terminal (or in VS Code terminal).</li>
+<li>
+<p>Create and navigate into a new, empty directory:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">mkdir</span><span class="w"> </span><span class="k">go</span><span class="o">-</span><span class="n">hello</span><span class="o">-</span><span class="n">comp423</span>
+<span class="n">cd</span><span class="w"> </span><span class="k">go</span><span class="o">-</span><span class="n">hello</span><span class="o">-</span><span class="n">comp423</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Initialize a new Git repository:</p>
+<div class="codehilite"><pre><span></span><code>git init
+</code></pre></div>
+
+</li>
+<li>
+<p>Create a new repository on <strong>GitHub</strong>, and then link it to your local project:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">yourusername</span><span class="o">/</span><span class="k">go</span><span class="o">-</span><span class="n">hello</span><span class="o">-</span><span class="n">comp423</span><span class="p">.</span><span class="n">git</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Push your initial commit:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">echo</span><span class="w"> </span><span class="ss">&quot;# Go DevContainer Project&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">README</span><span class="p">.</span><span class="n">md</span>
+<span class="n">git</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">README</span><span class="p">.</span><span class="n">md</span>
+<span class="n">git</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="ss">&quot;Initial commit&quot;</span>
+<span class="n">git</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">main</span>
+</code></pre></div>
+
+</li>
+</ol>
+<hr />
+<h2 id="step-2-configuring-your-dev-container">Step 2: Configuring your Dev Container<a class="headerlink" href="#step-2-configuring-your-dev-container" title="Permanent link">&para;</a></h2>
+<p>We’ll use a Microsoft Go Dev Container base image so that we don’t have to build everything from scratch.</p>
+<ol>
+<li>
+<p>Create a folder named <code>.devcontainer</code>:</p>
+<div class="codehilite"><pre><span></span><code>mkdir .devcontainer
+</code></pre></div>
+
+</li>
+<li>
+<p>Inside that folder, create a file called <code>devcontainer.json</code> (can be done with <code>touch .devcontainer/devcontainer.json</code> in terminal) with the following contents:</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Go Dev Container&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcr.microsoft.com/devcontainers/go:latest&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;customizations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;extensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;golang.go&quot;</span>
+<span class="w">           </span><span class="p">]</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+
+<div class="admonition info">
+<p class="admonition-title">Explanation</p>
+<ul>
+<li>name: The display name for the container in VS Code.</li>
+<li>image: Points to a prebuilt Go environment maintained by Microsoft.</li>
+<li>extensions: Automatically installs the official Go plugin for VS Code (published by the Go Team at Google).</li>
+</ul>
+</div>
+<ol>
+<li>Commit and push the configuration:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span>git<span class="w"> </span>add<span class="w"> </span>.devcontainer/devcontainer.json
+<span class="w">    </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Added DevContainer configuration&quot;</span>
+<span class="w">    </span>git<span class="w"> </span>push
+</code></pre></div>
+
+<hr />
+<h2 id="step-3-open-the-devcontainer">Step 3: Open the DevContainer<a class="headerlink" href="#step-3-open-the-devcontainer" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Open your <code>go-hello-comp423</code> project directory in VS Code.</li>
+<li>Open the Command Palette (Ctrl+Shift+P on Windows/Linux or Cmd+Shift+P on Mac).</li>
+<li>
+<p>Search for and select Remote-Containers: Open Folder in Container.</p>
+<ul>
+<li>Wait for VS Code to build and provision your container. Once complete, your environment
+will be running inside the container, with Go and all required tools installed.</li>
+</ul>
+</li>
+<li>
+<p>Verify the container setup by checking the Go version:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="n">version</span>
+</code></pre></div>
+
+</li>
+</ol>
+<p>You should see a recent Go version displayed, for example:</p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="n">go1</span><span class="mf">.20.5</span><span class="w"> </span><span class="n">linux</span><span class="o">/</span><span class="n">amd64</span>
+</code></pre></div>
+
+<p>This confirms Go is installed successfully in your Dev Container.</p>
+<hr />
+<h2 id="step-4-create-a-new-go-project">Step 4: Create a New Go Project<a class="headerlink" href="#step-4-create-a-new-go-project" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Initialize a new Go module</strong> for your project using the <code>mod</code> subcommand:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">username</span><span class="o">&gt;/</span><span class="k">go</span><span class="o">-</span><span class="n">hello</span><span class="o">-</span><span class="n">comp423</span>
+</code></pre></div>
+
+<p>(Replace <your-username> with your own GitHub username or any other module path you prefer.)</p>
+<p>This creates a go.mod file in your project directory, which tracks your module name and any dependencies you add in the future.</p>
+<div class="admonition question">
+<p class="admonition-title">Why initialize a Go Module?</p>
+<p>In Go, using modules is the recommended way to track dependencies. The go.mod file records this module name and tracks any libraries you import.</p>
+<p>The <code>go mod init</code> command sets up a clean and versioned environment for your Go project. It ensures that Go can properly manage dependencies and that your project remains reproducible</p>
+</div>
+</li>
+<li>
+<p>Create a new file, main.go:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">touch</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="k">go</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>In <code>main.go</code>, write a simple Go program:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="s2">&quot;fmt&quot;</span>
+
+<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Hello COMP423&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Verify your Go module: After creating the main.go file, you can view your module's details by running:</p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="ow">all</span>
+</code></pre></div>
+
+<p>This will display the current module (<code>github.com/yourusername/go-hello-comp423</code>) and any dependencies (if added).</p>
+</li>
+</ol>
+<hr />
+<h2 id="step-5-run-the-program">Step 5: Run the Program<a class="headerlink" href="#step-5-run-the-program" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Running Go Programs</p>
+<p>You can run Go programs directly without building them using the <code>go run</code> command.</p>
+</div>
+<ol>
+<li>Run the program using <code>go run</code>:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span>go<span class="w"> </span>run<span class="w"> </span>main.go
+</code></pre></div>
+
+<p>You should see the output:</p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span>Hello<span class="w"> </span>COMP423
+</code></pre></div>
+
+<hr />
+<h2 id="step-6-building-your-program">Step 6: Building your program<a class="headerlink" href="#step-6-building-your-program" title="Permanent link">&para;</a></h2>
+<p>Alternatively, you can use <code>go build</code> which compiles your Go code into a binary file that is compiled, and executable.</p>
+<ol>
+<li>
+<p>Build the project:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="k">go</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>After building, you will see a binary executable file named <code>main</code> (on Linux/macOS)</p>
+</li>
+<li>
+<p>Run the binary file directly:</p>
+<div class="codehilite"><pre><span></span><code>    ./main
+</code></pre></div>
+
+<p>This should again print:</p>
+<div class="codehilite"><pre><span></span><code>    Hello COMP423
+</code></pre></div>
+
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Difference Between <code>run</code> and <code>build</code></p>
+<ul>
+<li><code>go run</code>: Compiles and runs the code immediately but doesn't create a binary file. </li>
+<li><code>go build</code>: Compiles the code into a binary executable file, which can be kept, dsitributed, or executed multiple times later without recompiling.</li>
+</ul>
+</div>
+<hr />
+<h2 id="step-7-commiting-your-work-and-sharing">Step 7: Commiting your work and Sharing<a class="headerlink" href="#step-7-commiting-your-work-and-sharing" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Commit and Push changes in your program to Github:<div class="codehilite"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="k">go</span>
+<span class="n">git</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="ss">&quot;Added Hello COMP423 program&quot;</span>
+<span class="n">git</span><span class="w"> </span><span class="n">push</span>
+</code></pre></div>
+
+</li>
+</ol>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>Congratulations, now you have successfully completed the tutorial!</p>
+</div>
+<h2 id="summary"><strong>Summary</strong><a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Congratulations! Throughout this tutorial you have:</p>
+<ul>
+<li>Started from a blank directory and initialized a Git repository.</li>
+<li>Created a Dev Container configuration using Microsoft’s base Go image.</li>
+<li>Installed the official Go plugin for VS Code.</li>
+<li>Written a “Hello COMP423” program in Go.</li>
+<li>Explored both go run for executing your program.</li>
+<li>You’re now set up with a reproducible, containerized Go development environment! Keep experimenting with Go modules, package imports, testing, and more as you progress through your Go journey.</li>
+</ul>
+<h2 id="references">References:<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://go.dev/">Go (programming language)</a></li>
+<li><a href="https://go.dev/doc/">Go Documentation</a></li>
+<li><a href="https://pkg.go.dev/std">Go Library</a></li>
+<li><a href="https://code.visualstudio.com/docs/languages/go">Go Plugin</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+    
+  </body>
+</html>
