@@ -99,7 +99,7 @@ We’ll use a Microsoft Go Dev Container base image so that we don’t have to b
 
 4. Verify the container setup by checking the Go version:
 
-        go --version
+        go version
 
 You should see a recent Go version displayed, for example:
 
