@@ -142,7 +142,7 @@ This confirms Go is installed successfully in your Dev Container.
 
             go list -m all
 
-This will display the current module (```github.com/yourusername/go-hello-comp423```) and any dependencies (if added).
+    This will display the current module (```github.com/yourusername/go-hello-comp423```) and any dependencies (if added).
 
 ---
 
