@@ -146,7 +146,7 @@ This confirms Go is installed successfully in your Dev Container.
 
 ---
 
-## Step 6: Run the Program
+## Step 5: Run the Program
 
 !!! Tip "Running Go Programs"
     You can run Go programs directly without building them using the ```go run``` command.
@@ -165,7 +165,7 @@ You should see the output:
 
 --- 
 
-## Step 7: Building your program
+## Step 6: Building your program
 
 Alternatively, you can use ```go build``` which compiles your Go code into a binary file that is compiled, and executable.
 
@@ -188,7 +188,7 @@ Alternatively, you can use ```go build``` which compiles your Go code into a bin
     - ```go build```: Compiles the code into a binary executable file, which can be kept, dsitributed, or executed multiple times later without recompiling.
 --- 
 
-## Step 8: Commiting your work and Sharing
+## Step 7: Commiting your work and Sharing
 
 1. Commit and Push changes in your program to Github:
 
